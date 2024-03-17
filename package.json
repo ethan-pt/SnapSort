@@ -1,0 +1,20 @@
+{
+  "name": "snapsort",
+  "version": "0.0.1",
+  "description": "An Electron app designed for photographers to manage and select their best photos, reducing clutter and focusing on editing their top picks.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "electron",
+    "photography",
+    "photo management",
+    "photo editing"
+  ],
+  "author": "ethan-pt",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^29.1.4"
+  }
+}
