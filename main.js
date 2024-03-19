@@ -41,6 +41,7 @@ app.on('window-all-closed', () => {
     }
 });
 
+// Event listener for the open-file-dialog message
 ipcMain.on('open-file-dialog', (event) => {
     dialog.showOpenDialog({
         title: 'Select a folder',
