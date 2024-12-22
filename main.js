@@ -41,6 +41,8 @@ app.on('window-all-closed', () => {
     }
 });
 
+// ---
+
 // Event listener for the open-file-dialog message.
 // Prompts user to select image directory to be parsed.
 ipcMain.on('open-file-dialog', (event) => {
