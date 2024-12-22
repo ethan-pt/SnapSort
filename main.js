@@ -44,7 +44,7 @@ app.on('window-all-closed', () => {
 // ---
 
 // Event listener for the open-file-dialog message.
-// Prompts user to select image directory to be parsed.
+// Prompts user to select image directory, parses for valid image files, and sends list back to renderer process.
 ipcMain.on('open-file-dialog', (event) => {
     dialog.showOpenDialog({
         title: 'Select a folder',
@@ -52,7 +52,13 @@ ipcMain.on('open-file-dialog', (event) => {
         properties: ['openDirectory']
     }).then(result => {
         if (!result.canceled && result.filePaths.length > 0) {
-            event.sender.send('selected-directory', result.filePaths[0]);
+            const fs = require('fs');
+            const imageTypes = ['3fr', 'ari', 'arw', 'bay', 'braw', 'crw', 'cr2', 'cr3', 'cap', 'data', 'dcs', 'dcr', 'dng', 'drf', 'eip', 'erf', 'fff', 'gpr', 'iiq', 'k25', 'kdc', 'mdc', 'mef', 'mos', 'mrw', 'nef', 'nrw', 'obm', 'orf', 'pef', 'ptx', 'pxn', 'r3d', 'raf', 'raw', 'rwl', 'rw2', 'rwz', 'sr2', 'srf', 'srw', 'tif', 'x3f', 'png', 'jpg', 'jpeg'];
+            let imageDict = {'path': result.filePaths[0], 'files': []};
+            imageDict['files'] = fs.readdirSync(result.filePaths[0]).filter(file => {
+                return imageTypes.includes(file.split('.').pop().toLowerCase());
+            });
+            event.sender.send('image-dict', imageDict);
         }
     }).catch(err => {
         console.error(err);
