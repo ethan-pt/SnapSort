@@ -8,24 +8,24 @@ browseBtn.addEventListener('click', () => {
     ipcRenderer.send('open-file-dialog');
 });
 
-// Event listener for the response from the main process
-ipcRenderer.on('selected-directory', (event, path) => {
-    console.log('Selected directory: ', path);
+// Event listener for the image-dict message
+ipcRenderer.on('image-dict', (event, imageDict) => {
+    console.log(`Received image list: ${imageDict['files']} at path: ${imageDict['path']}`);
 
-    const imgContainer = document.getElementById('imgContainer');
-    
-    // For now, I'm just going to have users select at single image at a time.
-    // Once I get handle on that, it will likely be changed to only directories.
-    // TODO: keep main.js congruent with ^^^
-    const imageElement = document.createElement('img');
-
+    // Display the image list
     const fs = require('fs');
-    const buf = fs.readFileSync(path);
-
     const dcraw = require('dcraw');
-    const image = dcraw(buf, { extractThumbnail: True });
-
-    imageElement.src = image;
-
-    imgContainer.appendChild(imageElement);
+    const path = imageDict['path'];
+    imageDict['files'].forEach(file => {
+        fs.readFile(`${path}/${file}`, (err, data) => {
+            if (err) throw err;
+            
+            const thumbnail = dcraw(data, { extractThumbnail: true });
+            const blob = new Blob([thumbnail], { type: 'image/jpeg' });
+            const url = URL.createObjectURL(blob);
+            const img = document.createElement('img');
+            img.src = url;
+            document.body.appendChild(img);
+        });
+    });
 });
