@@ -8,6 +8,33 @@ browseBtn.addEventListener('click', () => {
     ipcRenderer.send('open-file-dialog');
 });
 
+// Function to display the image thumbnails
+function imageDisplayHandler(thumbnailUrl, fileName, metadata) {
+    const imgTableRow = document.getElementById('imgTableRow');
+    const tableData = document.createElement('td');
+    const imgDiv = document.createElement('div');
+    const img = document.createElement('img');
+    img.src = thumbnailUrl;
+    img.alt = fileName;
+    img.id = fileName;
+    imgDiv.appendChild(img);
+    imgDiv.className = 'imgDiv';
+    tableData.appendChild(imgDiv);
+    imgTableRow.appendChild(tableData);
+
+    // Resize the image to fit the div
+    img.onload = () => {
+        if (img.naturalWidth > img.naturalHeight) {
+            img.style.width = '100%';
+            img.style.height = 'auto';
+        } else {
+            img.style.width = 'auto';
+            img.style.height = '100%';
+        }
+    }
+
+}
+
 // Event listener for the image-dict message
 ipcRenderer.on('image-dict', (event, imageDict) => {
     console.log(`Received image list: ${imageDict['files']} at path: ${imageDict['path']}`);
