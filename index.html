@@ -5,13 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval'; img-src * 'self' blob:">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
     <title>SnapSort</title>
 </head>
 
 <body>
     <button id="browseBtn">Browse</button>
 
-    <div id="imgContainer"></div>
+    <div id="imgWrapper">
+        <table id="imgTable">
+            <tr id="imgTableRow"></tr>
+        </table>
+    </div>
 
     <script src="./renderer.js"></script>
 </body>
