@@ -37,22 +37,20 @@ function imageDisplayHandler(thumbnailUrl, fileName, metadata) {
 
 // Event listener for the image-dict message
 ipcRenderer.on('image-dict', (event, imageDict) => {
-    console.log(`Received image list: ${imageDict['files']} at path: ${imageDict['path']}`);
-
-    // Display the image list
     const fs = require('fs');
     const dcraw = require('dcraw');
-    const path = imageDict['path'];
+
+    // For each image file, read the file, extract the thumbnail, and display it.
     imageDict['files'].forEach(file => {
-        fs.readFile(`${path}/${file}`, (err, data) => {
+        fs.readFile(`${imageDict['path']}/${file}`, (err, data) => {
             if (err) throw err;
             
+            // Extract the thumbnail and metadata from the image file and display it
             const thumbnail = dcraw(data, { extractThumbnail: true });
+            const metadata = dcraw(data, { verbose: true, identify: true });
             const blob = new Blob([thumbnail], { type: 'image/jpeg' });
             const url = URL.createObjectURL(blob);
-            const img = document.createElement('img');
-            img.src = url;
-            document.body.appendChild(img);
+            imageDisplayHandler(url, file, metadata);
         });
     });
 });
