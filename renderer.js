@@ -31,6 +31,8 @@ function imageDisplayHandler(thumbnailUrl, fileName, metadata) {
             img.style.width = 'auto';
             img.style.height = '100%';
         }
+        
+        img.style.display = 'block';
     }
 
 }
