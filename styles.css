@@ -1,25 +1,19 @@
 img {
     display: none;
-    margin: auto auto;
+    margin: auto;
 }
 
-#imgTable {
+#imgPreview {
     border: 2px solid black;
-    display: block;
-}
-
-#imgTableRow td {
-    display: inline-block;
 }
 
 .imgDiv {
-    display: flex;
+    display: inline-block;
     margin: 10px;
     border: 1px solid black;
     width: 150px;
     height: 150px;
     color: white;
-    align-items: center;
     transition: box-shadow 0.3s ease-out;
 }
 
