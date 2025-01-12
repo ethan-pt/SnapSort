@@ -10,8 +10,7 @@ browseBtn.addEventListener('click', () => {
 
 // Function to display the image thumbnails
 function imageDisplayHandler(thumbnailUrl, fileName, metadata) {
-    const imgTableRow = document.getElementById('imgTableRow');
-    const tableData = document.createElement('td');
+    const imgPreview = document.getElementById('imgPreview');
     const imgDiv = document.createElement('div');
     const img = document.createElement('img');
     img.src = thumbnailUrl;
@@ -19,8 +18,7 @@ function imageDisplayHandler(thumbnailUrl, fileName, metadata) {
     img.id = fileName;
     imgDiv.appendChild(img);
     imgDiv.className = 'imgDiv';
-    tableData.appendChild(imgDiv);
-    imgTableRow.appendChild(tableData);
+    imgPreview.appendChild(imgDiv);
 
     // Resize the image to fit the div
     img.onload = () => {
@@ -34,7 +32,6 @@ function imageDisplayHandler(thumbnailUrl, fileName, metadata) {
         
         img.style.display = 'block';
     }
-
 }
 
 // Event listener for the image-dict message
