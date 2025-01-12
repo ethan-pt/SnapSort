@@ -5,6 +5,7 @@ img {
 
 #imgPreview {
     border: 2px solid black;
+    display: none;
 }
 
 .imgDiv {
