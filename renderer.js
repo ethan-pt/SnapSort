@@ -13,6 +13,9 @@ browseBtn.addEventListener('click', () => {
 
 // Function to display the image thumbnails
 function imageDisplayHandler(thumbnailUrl, fileName, metadata) {
+    // Hide dropArea div and display imgPreview div
+    const dropArea = document.getElementById('dropArea');
+    dropArea.style.display = 'none';
     const imgPreview = document.getElementById('imgPreview');
     imgPreview.style.display = 'block';
     
