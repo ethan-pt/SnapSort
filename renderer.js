@@ -3,6 +3,9 @@ const { ipcRenderer } = require('electron');
 // Event listener for the browse button
 const browseBtn = document.getElementById('browseBtn');
 browseBtn.addEventListener('click', () => {
+    // Clear image preview div
+    const imgPreview = document.getElementById('imgPreview');
+    imgPreview.replaceChildren();
     
     // Send a message to the main process to open a dialog
     ipcRenderer.send('open-file-dialog');
