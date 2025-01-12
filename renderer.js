@@ -14,6 +14,8 @@ browseBtn.addEventListener('click', () => {
 // Function to display the image thumbnails
 function imageDisplayHandler(thumbnailUrl, fileName, metadata) {
     const imgPreview = document.getElementById('imgPreview');
+    imgPreview.style.display = 'block';
+    
     const imgDiv = document.createElement('div');
     const img = document.createElement('img');
     img.src = thumbnailUrl;
